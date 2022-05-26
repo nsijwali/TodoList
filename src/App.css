@@ -1,0 +1,52 @@
+.tasklist__card {
+	min-height: 12.5rem;
+	max-height: fit-content;
+	padding: 0.5rem;
+	margin-block: 0.5rem;
+	position: relative;
+	border-top: 6px solid green;
+}
+
+.task__title {
+	font-weight: 600 !important;
+	text-align: center;
+}
+
+.task_date {
+	position: absolute;
+	bottom: 0.5rem;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	padding-inline: 0.5rem;
+	left: 0;
+	color: dimgrey;
+}
+
+.task_date > span > div:first-child {
+	color: dimgrey;
+	font-weight: 600;
+}
+
+.calendar__wrapper {
+	display: flex;
+	align-items: center;
+	position: absolute;
+	width: fit-content;
+	right: 8px;
+	bottom: -6px;
+}
+.expiring {
+	border-top: 6px solid orange;
+}
+
+.elapsed {
+	border-top: 6px solid red;
+}
+
+.checkbox__tasklist {
+	position: absolute !important;
+	width: fit-content;
+	right: 8px;
+	top: 0px;
+}
