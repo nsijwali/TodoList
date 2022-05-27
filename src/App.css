@@ -50,3 +50,14 @@
 	right: 8px;
 	top: 0px;
 }
+
+.legend {
+	display: flex;
+	float: right;
+	padding-block: 1rem;
+}
+
+.legend__flex {
+	display: flex !important;
+	align-items: baseline;
+}

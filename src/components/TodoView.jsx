@@ -9,6 +9,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import CalendarIcon from '@mui/icons-material/CalendarMonth';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 
@@ -29,6 +31,8 @@ const TodoView = ({
 	toggleTodo = () => {},
 	type,
 	handleDateChange = () => {},
+	moveDown = () => {},
+	moveUp = () => {},
 }) => {
 	const {
 		id,
@@ -80,8 +84,27 @@ const TodoView = ({
 			</Box>
 		</Modal>
 	);
+
 	return (
 		<Paper elevation={3} className={`${checkExpiry()} tasklist__card`} key={id}>
+			{!completed && (
+				<>
+					<IconButton
+						color='primary'
+						aria-label='calendar'
+						onClick={() => moveUp(id)}
+					>
+						<ExpandLessIcon />
+					</IconButton>
+					<IconButton
+						color='primary'
+						aria-label='calendar'
+						onClick={() => moveDown(id)}
+					>
+						<ExpandMoreIcon />
+					</IconButton>
+				</>
+			)}
 			<Typography
 				variant='subtitle2'
 				gutterBottom
@@ -104,14 +127,15 @@ const TodoView = ({
 				<Typography variant='caption' display='block' gutterBottom>
 					<div style={{ textAlign: 'center' }}>Expiry by</div>
 					<span className='calendar__wrapper'>
-						<IconButton
-							color='primary'
-							aria-label='calendar'
-							onClick={handleOpen}
-							disabled={completed}
-						>
-							<CalendarIcon />
-						</IconButton>
+						{!completed && (
+							<IconButton
+								color='primary'
+								aria-label='calendar'
+								onClick={handleOpen}
+							>
+								<CalendarIcon />
+							</IconButton>
+						)}
 
 						<div>{dayjs(deadline).format('DD-MM-YYYY')}</div>
 					</span>

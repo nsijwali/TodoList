@@ -11,6 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import AddIcon from '@mui/icons-material/AddTask';
 import TodoView from './TodoView';
+import Legend from './Legend';
 
 const TodoContainer = () => {
 	const [uncompletedTask, setUncompletedTask] = useState([
@@ -30,10 +31,12 @@ const TodoContainer = () => {
 			There is nothing here
 		</Typography>
 	);
+
 	const sortObj = (objs) =>
 		objs.sort((a, b) =>
 			a.createdOn < b.createdOn ? 1 : b.createdOn < a.createdOn ? -1 : 0,
 		);
+
 	const toggleTodo = (id, type) => {
 		if (type === 'incomplete') {
 			const temp = [...uncompletedTask];
@@ -76,6 +79,7 @@ const TodoContainer = () => {
 		setTask(e.target.value);
 	};
 
+	// add a new task
 	const addTask = () => {
 		if (task.length > 0) {
 			const temp = {
@@ -89,6 +93,39 @@ const TodoContainer = () => {
 			setTask('');
 		}
 	};
+
+	//move the task down by one level
+	const moveDown = (id) => {
+		const temp = [...uncompletedTask];
+		let atIndex;
+		let ele;
+		temp.forEach((el, index) => {
+			if (el.id === id) {
+				atIndex = index;
+				ele = el;
+			}
+		});
+		temp.splice(atIndex, 1);
+		temp.splice(atIndex + 1, 0, ele);
+		setUncompletedTask(temp);
+	};
+
+	//move the task up by one level
+	const moveUp = (id) => {
+		const temp = [...uncompletedTask];
+		let atIndex;
+		let ele;
+		temp.forEach((el, index) => {
+			if (el.id === id) {
+				atIndex = index;
+				ele = el;
+			}
+		});
+		if (atIndex === 0) return true;
+		temp.splice(atIndex, 1);
+		temp.splice(atIndex - 1, 0, ele);
+		setUncompletedTask(temp);
+	};
 	return (
 		<>
 			<Container maxWidth='sm'>
@@ -96,6 +133,7 @@ const TodoContainer = () => {
 				<Typography variant='h4' gutterBottom align='center' component='div'>
 					My Todo List
 				</Typography>
+
 				<Paper
 					component='form'
 					sx={{
@@ -127,6 +165,7 @@ const TodoContainer = () => {
 						<AddIcon />
 					</IconButton>
 				</Paper>
+				<Legend />
 				<Grid
 					container
 					rowSpacing={1}
@@ -175,6 +214,8 @@ const TodoContainer = () => {
 										toggleTodo={toggleTodo}
 										type='incomplete'
 										handleDateChange={handleDateChange}
+										moveUp={moveUp}
+										moveDown={moveDown}
 									/>
 								</React.Fragment>
 							))
